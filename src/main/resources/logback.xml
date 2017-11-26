@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="CONSOLE_LOG_PATTERN"
+		value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%30.-30X{userName}]) %clr([%32.32X{requestId}]) %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+
+	<appender name="SAVE-TO-FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<file>D:\\muven\\logs\\log.log</file>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				D:\\muven\\logs\\archived\\log_%d{dd-MM-yyyy}.log
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+			<totalSizeCap>50MB</totalSizeCap>
+		</rollingPolicy>
+
+	</appender>
+	
+	<logger name="org.springframework.web" level="DEBUG">
+	    <appender-ref ref="SAVE-TO-FILE"/>
+	</logger>
+	<logger name="org.apache.http" level="TRACE" >
+	    <appender-ref ref="SAVE-TO-FILE"/>
+	</logger>
+	<logger name="com.sun.xml.internal.ws.transport.http" level="TRACE" >
+	    <appender-ref ref="SAVE-TO-FILE"/>
+	</logger>
+	<logger name="org.hibernate.SQL" level="DEBUG" >
+	    <appender-ref ref="SAVE-TO-FILE"/>
+	</logger>
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
+		level="TRACE" >
+	    <appender-ref ref="SAVE-TO-FILE"/>
+	</logger>
+
+</configuration>

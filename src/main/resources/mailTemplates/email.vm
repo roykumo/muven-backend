@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title>BTPN</title>
+	</head>
+	<body>
+		Kepada <br>
+		PT. ${vendorName} <br>						
+		${vendorAddress} <br>
+		<br>
+		Mohon dapat dilakukan pengambilan box dokumen baru pada lokasi cabang dengan [REQUEST ID] dan detail sebagai berikut:
+		<br>
+		<table border="1">
+			<tr>
+				<td>Nama Divisi/ Cabang Pemilik Arsip, Branch Code   & Cost Center</td>
+				<td>:</td>
+				<td>${deptCode} - ${deptName}</td>
+			</tr>
+			<tr>
+				<td>Alamat pengambilan dokumen</td>
+				<td>:</td>
+				<td>${deptAddress}</td>
+			</tr>
+			<tr>
+				<td>Tanggal pengambilan dokumen</td>
+				<td>:</td>
+				<td>${pickupDate}</td>
+			</tr>
+			<tr>
+				<td>Nama PIC</td>
+				<td>:</td>
+				<td>${userName}</td>
+			</tr>
+			<tr>
+				<td>No. Telp. / Hp</td>
+				<td>:</td>
+				<td>${userPhone}</td>
+			</tr>
+			<tr>
+				<td>Jumlah Box</td>
+				<td>:</td>
+				<td>${boxCount}</td>
+			</tr>
+			<tr>
+				<td>Detail box</td>
+				<td>:</td>
+				<td><pre>${boxDetail}</pre></td>
+			</tr>
+		</table>
+	</body>
+</html>

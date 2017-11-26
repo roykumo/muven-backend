@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.eter</groupId>
+  <artifactId>cake-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>cake-service</name>
+  <url>http://maven.apache.org</url>
+
+	
+	<distributionManagement>
+		<repository>
+			<id>${nexus-release}</id>
+			<url>${nexus-release-url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>${nexus-snapshot}</id>
+			<url>${nexus-snapshot-url}</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+	</parent>
+
+	<properties>
+		<start-class>com.eter.muven.Application</start-class>
+		<simplecaptcha.version>1.2.1</simplecaptcha.version>
+		<mysql.connector.version>5.1.31</mysql.connector.version>
+		<cake-entity.version>0.0.1-SNAPSHOT</cake-entity.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+	
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-redis</artifactId> 
+			</dependency> <dependency> <groupId>org.springframework.session</groupId> 
+			<artifactId>spring-session</artifactId> </dependency> -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+	
+		<!-- Oracle -->
+		<!--<dependency>
+			<groupId>com.oracle.jdbc</groupId>
+			<artifactId>ojdbc7</artifactId>
+			<version>${oracle.version}</version>
+		</dependency>-->
+	
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+	
+		<!-- captcha -->
+		<!-- <dependency>
+			<groupId>simplecaptcha</groupId>
+			<artifactId>simplecaptcha</artifactId>
+			<version>${simplecaptcha.version}</version>
+		</dependency> -->
+	
+		<!-- jms -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>com.ibm</groupId>
+			<artifactId>com.ibm.mq.allclient</artifactId>
+			<version>${ibm.mq.allclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>javax.jms-api</artifactId>
+			<version>${jms.version}</version>
+		</dependency>-->
+		<dependency>
+			<groupId>com.eter</groupId>
+			<artifactId>cake-entity</artifactId>
+			<version>${cake-entity.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>cake-service</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${liquibase.version}</version>
+				<configuration>
+					<changeLogFile>
+						${basedir}/liquibase/db.changelog-master.xml
+					</changeLogFile>
+					<driver>${db.driver}</driver>
+					<url>${db.url}</url>
+					<username>${db.username}</username>
+					<password>${db.password}</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
