@@ -210,4 +210,22 @@ public class ProductController extends BaseController{
 		
 		return JsonUtil.generateJson(resp);
     }
+
+	@RequestMapping(method = RequestMethod.GET, value = "")
+	@ResponseBody
+	public String getProduct(@RequestParam(name = "barcode", defaultValue = "") String barcode)
+			throws Exception {
+
+		try {
+			logger.debug("getProduct by Barcode: {}", barcode);
+			Product product = productService.getByBarcode(barcode);
+
+			CommonResponse<Product> response = commonResponseGenerator.generateCommonResponse(product);
+
+			logger.debug("response getProduct by Barcode: {}", JsonUtil.generateJson(response));
+			return JsonUtil.generateJson(response);
+		} catch (Exception e) {
+			throw new UserException("06", e.getMessage());
+		}
+	}
 }

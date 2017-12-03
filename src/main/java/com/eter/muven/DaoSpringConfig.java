@@ -1,20 +1,8 @@
 package com.eter.muven;
 
+import com.eter.cake.persistence.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.eter.cake.persistence.service.InventoryDaoService;
-import com.eter.cake.persistence.service.InventoryDaoServiceImpl;
-import com.eter.cake.persistence.service.InventoryItemDaoService;
-import com.eter.cake.persistence.service.InventoryItemDaoServiceImpl;
-import com.eter.cake.persistence.service.NotificationDaoService;
-import com.eter.cake.persistence.service.NotificationDaoServiceImpl;
-import com.eter.cake.persistence.service.ProductDaoService;
-import com.eter.cake.persistence.service.ProductDaoServiceImpl;
-import com.eter.cake.persistence.service.ProductTypeDaoService;
-import com.eter.cake.persistence.service.ProductTypeDaoServiceImpl;
-import com.eter.cake.persistence.service.SellPriceDaoService;
-import com.eter.cake.persistence.service.SellPriceDaoServiceImpl;
 
 @Configuration
 public class DaoSpringConfig {
@@ -48,4 +36,13 @@ public class DaoSpringConfig {
 	public NotificationDaoService notificationDaoService() {
 		return new NotificationDaoServiceImpl();
 	}
+
+	@Bean
+	public InventoryOutDaoService inventoryOutDaoService() {return new InventoryOutDaoServiceImpl();}
+
+	@Bean
+	public InventoryItemOutDaoService inventoryItemOutDaoService() {
+		return new InventoryItemOutDaoServiceImpl();
+	}
+
 }
