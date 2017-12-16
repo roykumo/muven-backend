@@ -122,12 +122,14 @@ public class ProductController extends BaseController{
 			if(checkProduct==null){
 				throw new UserException("06", "Product not found");
 			}else{
+				checkProduct.setCode(product.getCode());
 				checkProduct.setBarcode(product.getBarcode());
 				checkProduct.setName(product.getName());
 				checkProduct.setType(product.getType());
 				checkProduct.setAlertRed(product.getAlertRed());
 				checkProduct.setAlertYellow(product.getAlertYellow());
 				checkProduct.setAlertGreen(product.getAlertGreen());
+				checkProduct.setAlertBlue(product.getAlertBlue());
 				
 				if(product.getType()!=null){
 					checkProduct.setType(productTypeService.getById(product.getType().getId()));
