@@ -201,13 +201,13 @@ public class ProductController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET, value = GET_PRODUCT_STOCK)
 	@ResponseBody
-    public String getStock( @RequestParam(name = "type", defaultValue = "") String type)
+    public String getStock( @RequestParam(name = "type", defaultValue = "") String type,  @RequestParam(name = "code", defaultValue = "") String code)
             throws Exception {
 		
 		ProductType productType = new ProductType();
 		productType.setId(type);
-		List<ProductStock> stocks = productService.getProductStock(productType);
-		
+		List<ProductStock> stocks = StringUtils.isEmpty(code) ? productService.getProductStock(productType) : productService.getProductStock(productType, code);
+
 		CommonResponse<List<ProductStock>> resp = new CommonResponse<List<ProductStock>>(stocks);
 		
 		return JsonUtil.generateJson(resp);
@@ -221,6 +221,9 @@ public class ProductController extends BaseController{
 		try {
 			logger.debug("getProduct by Barcode: {}", barcode);
 			Product product = productService.getByBarcode(barcode);
+			if(product==null){
+				product = productService.getByCode(barcode);
+			}
 
 			CommonResponse<Product> response = commonResponseGenerator.generateCommonResponse(product);
 

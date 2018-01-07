@@ -12,7 +12,7 @@ import com.eter.response.annotation.EnableLoadResponse;
 
 @Configuration
 @EnableAutoConfiguration
-@EntityScan({"com.eter.cake.persistence.entity"})
+@EntityScan({"com.eter.cake.persistence.entity","com.eter.cake.persistence.entity.rest"})
 @EnableJpaRepositories({"com.eter.cake.persistence.repo", "com.eter.cake.persistence.service"})
 @ComponentScan({"com.eter.muven.cake.controller"})
 @Import({SpringConfig.class, DaoSpringConfig.class})

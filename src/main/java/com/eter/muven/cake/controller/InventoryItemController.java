@@ -136,6 +136,8 @@ public class InventoryItemController extends BaseController{
 			if(checkInventoryItem==null){
 				throw new UserException("06", "InventoryItem not found");
 			}else{
+				checkInventoryItem.getInventory().setInvoice(inventoryItem.getInventory().getInvoice());
+
 				checkInventoryItem.setProduct(productDaoService.getById(inventoryItem.getProduct().getId()));
 				checkInventoryItem.setExpiredDate(inventoryItem.getExpiredDate());
 				checkInventoryItem.setQuantity(inventoryItem.getQuantity());

@@ -1,5 +1,6 @@
 package com.eter.muven;
 
+import com.eter.cake.persistence.entity.ProductCategory;
 import com.eter.cake.persistence.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +44,11 @@ public class DaoSpringConfig {
 	@Bean
 	public InventoryItemOutDaoService inventoryItemOutDaoService() {
 		return new InventoryItemOutDaoServiceImpl();
+	}
+
+	@Bean
+	public ProductCategoryDaoService productCategoryDaoService() {
+		return new ProductCategoryDaoServiceImpl();
 	}
 
 }

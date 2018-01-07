@@ -1,5 +1,6 @@
 package com.eter.muven.cake.controller;
 
+import com.eter.cake.Constants;
 import com.eter.cake.persistence.entity.InventoryOut;
 import com.eter.cake.persistence.entity.rest.KeyValue;
 import com.eter.cake.persistence.service.InventoryOutDaoService;
@@ -65,7 +66,15 @@ public class InventoryOutController extends BaseController{
 		try {
 			logger.debug("add: {}", JsonUtil.generateJson(inventoryOut));
         	inventoryOut.setId(null);
-        	
+
+        	if(inventoryOut.getInventoryIn()!=null) {
+				inventoryOut.getInventoryIn().setType(Constants.InventoryType.REPACKING);
+
+				if (!StringUtils.isEmpty(inventoryOut.getType())) {
+					if (inventoryOut.getType().equalsIgnoreCase(Constants.InventoryType.STOCK_OPNAME))
+						inventoryOut.getInventoryIn().setType(Constants.InventoryType.STOCK_OPNAME);
+				}
+			}
         	inventoryOutService.save(inventoryOut);
         	
     		CommonResponse<InventoryOut> response = commonResponseGenerator.generateCommonResponse(inventoryOut);
@@ -97,10 +106,10 @@ public class InventoryOutController extends BaseController{
 			if(checkInventory==null){
 				throw new UserException("06", "Inventory not found");
 			}else{
-				//TODO: update logic
+				//TODO: update logic plus set InventoryInType
 				checkInventory.setDate(inventoryOut.getDate());
 				checkInventory.setItems(inventoryOut.getItems());
-				
+
 				inventoryOutService.save(checkInventory);
 			}
 			

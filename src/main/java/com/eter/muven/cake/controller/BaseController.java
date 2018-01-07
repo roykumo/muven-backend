@@ -12,5 +12,6 @@ public abstract class BaseController {
 	public static final String GET_LIST_FILTER_PAGING = "/list/filter";
 	public static final String GET_PRODUCT_STOCK = "/stock";
 	public static final String NOTIFICATION_SALE = "/sale";
+	public static final String NOTIFICATION_STATUS = "/status";
 
 }

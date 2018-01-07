@@ -3,6 +3,7 @@ package com.eter.muven.cake.controller;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import com.eter.cake.persistence.entity.rest.StatusNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,18 @@ public class NotificationController extends BaseController{
 		
 		return JsonUtil.generateJson(resp);
     }
+
+	@RequestMapping(method = RequestMethod.GET, value = NOTIFICATION_STATUS)
+	@ResponseBody
+	public String getStatusNotifications( @RequestParam(name = "type", defaultValue = "") String type)
+			throws Exception {
+
+		ProductType productType = new ProductType();
+		productType.setId(type);
+		List<StatusNotification> statusNotifications = notificationDaoService.getStatusNotification(productType);
+
+		CommonResponse<List<StatusNotification>> resp = new CommonResponse<List<StatusNotification>>(statusNotifications);
+
+		return JsonUtil.generateJson(resp);
+	}
 }

@@ -131,6 +131,7 @@ public class InventoryItemOutController extends BaseController{
 				checkInventoryItem.setProduct(productDaoService.getById(inventoryItemOut.getProduct().getId()));
 				checkInventoryItem.setQuantity(inventoryItemOut.getQuantity());
 				checkInventoryItem.setPurchasePrice(inventoryItemOut.getPurchasePrice());
+				checkInventoryItem.setRemarks(inventoryItemOut.getRemarks());
 				
 				inventoryItemOutDaoService.save(checkInventoryItem);
 			}
