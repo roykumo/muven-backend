@@ -1,13 +1,16 @@
 package com.eter.muven.cake.controller;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import com.eter.cake.persistence.service.InventoryOutDaoService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,11 +48,16 @@ public class InventoryController extends BaseController{
 	@Autowired(required = true)
 	private InventoryDaoService inventoryService;
 
+    @Autowired(required = true)
+    private InventoryOutDaoService inventoryOutService;
+
 	@Autowired
 	private CommonResponseGenerator commonResponseGenerator;
 	
 	@Autowired
 	private VelocityEngine velocityEngine;
+
+    private static final DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -172,5 +180,44 @@ public class InventoryController extends BaseController{
         ObjectWriter writer = JsonUtil.generateDefaultJsonWriter();
         return writer.writeValueAsString(resp);
     }
-	
+
+    private static final Set<String> TrxTypeIn = new HashSet<>(Arrays.asList( new String[] {"PU", "ST", "RE"} ));
+    private static final Set<String> TrxTypeOut = new HashSet<>(Arrays.asList( new String[] {"SA", "CR", "EX"} ));
+
+    @RequestMapping(method = RequestMethod.GET, value = "/maxTrxNumber")
+    @ResponseBody
+    public String get(@RequestParam(name = "type") String type, @RequestParam(name = "date", required = false) String date
+                    ) throws JsonProcessingException, UserException{
+        try {
+            logger.debug("getMaxNumber: type({}), date({})", type, date);
+
+            int number = 0;
+
+
+            List<KeyValue> filters = new ArrayList<>();
+
+            KeyValue keyValue1 = new KeyValue();
+            keyValue1.setKey("type");
+            keyValue1.setValue(type);
+            filters.add(keyValue1);
+
+            if(date!=null){
+                Date startDate = df.parse(date);
+
+                KeyValue keyValue2 = new KeyValue();
+                keyValue2.setKey("date");
+                keyValue2.setValue(String.valueOf(startDate.getTime()));
+                filters.add(keyValue2);
+            }
+
+            number = (TrxTypeIn.contains(type) ? inventoryService.countListPaging(filters) : inventoryOutService.countListPaging(filters))+1;
+
+            CommonResponse<Integer> response = commonResponseGenerator.generateCommonResponse(number);
+
+            logger.debug("response getById: {}", JsonUtil.generateJson(response));
+            return JsonUtil.generateJson(response);
+        } catch (Exception e) {
+            throw new UserException("06", e.getMessage());
+        }
+    }
 }

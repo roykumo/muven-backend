@@ -51,4 +51,6 @@ public class DaoSpringConfig {
 		return new ProductCategoryDaoServiceImpl();
 	}
 
+	@Bean
+	public TransactionDaoService transactionDaoService() {return  new TransactionDaoServiceImpl();}
 }

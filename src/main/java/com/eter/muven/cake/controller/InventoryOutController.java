@@ -75,7 +75,7 @@ public class InventoryOutController extends BaseController{
 						inventoryOut.getInventoryIn().setType(Constants.InventoryType.STOCK_OPNAME);
 				}
 			}
-        	inventoryOutService.save(inventoryOut);
+        	inventoryOut =  inventoryOutService.save(inventoryOut);
         	
     		CommonResponse<InventoryOut> response = commonResponseGenerator.generateCommonResponse(inventoryOut);
         	
