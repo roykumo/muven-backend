@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eter.cake.persistence.entity.ProductCategory;
+import com.eter.cake.persistence.service.ProductCategoryDaoService;
 import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +52,9 @@ public class ProductController extends BaseController{
 
 	@Autowired(required = true)
 	private ProductTypeDaoService productTypeService;
+
+	@Autowired
+	private ProductCategoryDaoService productCategoryDaoService;
 	
 	@Autowired
 	private CommonResponseGenerator commonResponseGenerator;
@@ -79,14 +84,14 @@ public class ProductController extends BaseController{
 		try {
 			logger.debug("add: {}", JsonUtil.generateJson(product));
         	product.setId(null);
-        	if(product.getType()!=null){
-        		ProductType productType = productTypeService.getById(product.getType().getId());
+        	if(product.getCategory()!=null){
+        		ProductCategory productCategory = productCategoryDaoService.getById(product.getCategory().getId());
         		
-        		if(productType==null){
-        			throw new UserException("06", "Product Type not found");
+        		if(productCategory==null){
+        			throw new UserException("06", "Product Category not found");
         		}
         		
-        		product.setType(productType);
+        		product.setCategory(productCategory);
         	}
         	
         	productService.save(product);
@@ -125,14 +130,14 @@ public class ProductController extends BaseController{
 				checkProduct.setCode(product.getCode());
 				checkProduct.setBarcode(product.getBarcode());
 				checkProduct.setName(product.getName());
-				checkProduct.setType(product.getType());
+				checkProduct.setCategory(product.getCategory());
 				checkProduct.setAlertRed(product.getAlertRed());
 				checkProduct.setAlertYellow(product.getAlertYellow());
 				checkProduct.setAlertGreen(product.getAlertGreen());
 				checkProduct.setAlertBlue(product.getAlertBlue());
 				
-				if(product.getType()!=null){
-					checkProduct.setType(productTypeService.getById(product.getType().getId()));
+				if(product.getCategory()!=null){
+					checkProduct.setCategory(productCategoryDaoService.getById(product.getCategory().getId()));
 				}
 				
 				productService.save(checkProduct);
