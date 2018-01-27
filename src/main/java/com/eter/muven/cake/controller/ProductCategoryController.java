@@ -100,6 +100,7 @@ public class ProductCategoryController extends BaseController{
 				checkProductCategory.setDescription(productCategory.getDescription());
 				checkProductCategory.setParent(productCategory.getParent());
 				checkProductCategory.setType(productCategory.getType());
+				checkProductCategory.setOrderNo(productCategory.getOrderNo());
 				
 				productCategoryService.save(checkProductCategory);
 			}
