@@ -130,6 +130,7 @@ public class ProductController extends BaseController{
 				checkProduct.setCode(product.getCode());
 				checkProduct.setBarcode(product.getBarcode());
 				checkProduct.setName(product.getName());
+				checkProduct.setProductGroup(product.getProductGroup());
 				checkProduct.setCategory(product.getCategory());
 				checkProduct.setAlertRed(product.getAlertRed());
 				checkProduct.setAlertYellow(product.getAlertYellow());
@@ -206,12 +207,22 @@ public class ProductController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET, value = GET_PRODUCT_STOCK)
 	@ResponseBody
-    public String getStock( @RequestParam(name = "type", defaultValue = "") String type,  @RequestParam(name = "code", defaultValue = "") String code)
+    public String getStock( @RequestParam(name = "type", defaultValue = "") String type,
+                            @RequestParam(name = "code", defaultValue = "") String code,
+                            @RequestParam(name = "category", defaultValue = "") String category,
+                            @RequestParam(name = "group", defaultValue = "") String group)
             throws Exception {
 		
 		ProductType productType = new ProductType();
 		productType.setId(type);
-		List<ProductStock> stocks = StringUtils.isEmpty(code) ? productService.getProductStock(productType) : productService.getProductStock(productType, code);
+
+		ProductCategory productCategory = null;
+		if(!StringUtils.isEmpty(category)){
+		    productCategory = new ProductCategory();
+		    productCategory.setId(category);
+        }
+
+		List<ProductStock> stocks = productService.getProductStock(productType, productCategory, code, group);
 
 		CommonResponse<List<ProductStock>> resp = new CommonResponse<List<ProductStock>>(stocks);
 		
