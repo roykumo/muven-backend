@@ -193,7 +193,6 @@ public class InventoryController extends BaseController{
 
             int number = 0;
 
-
             List<KeyValue> filters = new ArrayList<>();
 
             KeyValue keyValue1 = new KeyValue();
@@ -201,14 +200,14 @@ public class InventoryController extends BaseController{
             keyValue1.setValue(type);
             filters.add(keyValue1);
 
-            if(date!=null){
-                Date startDate = df.parse(date);
+            //if(date!=null){
+                Date startDate = Calendar.getInstance().getTime();
 
                 KeyValue keyValue2 = new KeyValue();
                 keyValue2.setKey("date");
                 keyValue2.setValue(String.valueOf(startDate.getTime()));
                 filters.add(keyValue2);
-            }
+            //}
 
             number = (TrxTypeIn.contains(type) ? inventoryService.countListPaging(filters) : inventoryOutService.countListPaging(filters))+1;
 

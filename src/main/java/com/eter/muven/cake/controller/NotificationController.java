@@ -51,12 +51,15 @@ public class NotificationController extends BaseController{
 
 	@RequestMapping(method = RequestMethod.GET, value = NOTIFICATION_STATUS)
 	@ResponseBody
-	public String getStatusNotifications( @RequestParam(name = "type", defaultValue = "") String type, @RequestParam(name = "barcode", defaultValue = "") String barcode)
+	public String getStatusNotifications( @RequestParam(name = "type", defaultValue = "") String type,
+										  @RequestParam(name = "category", defaultValue = "") String category,
+										  @RequestParam(name = "barcode", defaultValue = "") String barcode,
+										  @RequestParam(name = "group", defaultValue = "") String group)
 			throws Exception {
 
 		ProductType productType = new ProductType();
 		productType.setId(type);
-		List<StatusNotification> statusNotifications = notificationDaoService.getStatusNotification(productType, barcode);
+		List<StatusNotification> statusNotifications = notificationDaoService.getStatusNotification(productType, category, barcode, group);
 
 		CommonResponse<List<StatusNotification>> resp = new CommonResponse<List<StatusNotification>>(statusNotifications);
 
