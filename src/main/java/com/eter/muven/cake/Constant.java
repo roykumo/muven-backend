@@ -60,4 +60,21 @@ public class Constant {
 			
 		}
 	}
+
+	public final class ReportParamReceipt{
+		public static final String REPORT_NAME = "receipt";
+		public static final String RECEIPT_NO = "receiptNo";
+		public static final String TYPE = "type";
+		public static final String USER = "user";
+		public static final String DATE = "date";
+		public static final String TOTAL_PRICE = "totalPrice";
+		public static final String PAY_AMOUNT = "payAmount";
+		public static final String CHANGE = "change";
+		public static final String DATA_SET = "ReceiptDataset";
+		public static final String PAYMENT = "payment";
+
+		private ReportParamReceipt(){
+
+		}
+	}
 }

@@ -30,6 +30,9 @@
 		<simplecaptcha.version>1.2.1</simplecaptcha.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
 		<cake-entity.version>0.0.1-SNAPSHOT</cake-entity.version>
+		<jasper.version>6.3.1</jasper.version>
+		<jasper-fonts.version>6.0.0</jasper-fonts.version>
+		<util.version>0.0.1</util.version>
 	</properties>
 
 	<dependencies>
@@ -37,7 +40,13 @@
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 		</dependency>
-	
+
+		<dependency>
+			<groupId>com.btpn</groupId>
+			<artifactId>util</artifactId>
+			<version>${util.version}</version>
+		</dependency>
+
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -109,6 +118,26 @@
 			<groupId>com.eter</groupId>
 			<artifactId>cake-entity</artifactId>
 			<version>${cake-entity.version}</version>
+		</dependency>
+
+		<!-- Jasper -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasper.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>${jasper-fonts.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-functions</artifactId>
+			<version>${jasper.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
